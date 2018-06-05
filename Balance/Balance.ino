@@ -3,7 +3,7 @@
 #include "Balance.h"
 
 SerialDebug Debug;
-SoftWire I2C_1(PB6, PB7, SOFT_STANDARD);
+
 TwoWire I2C_2(2);
 
 Robot robot;
@@ -14,8 +14,8 @@ void scan() {
   Debug.println("Scanning...");
   nDevices = 0;
   for(address = 1; address < 127; address++) {
-    I2C_1.beginTransmission(address);
-    error = I2C_1.endTransmission();
+    I2C_2.beginTransmission(address);
+    error = I2C_2.endTransmission();
     if (error == 0) {
       Debug.print("I2C device found at address 0x");
       if (address < 16) Debug.print("0");
@@ -39,8 +39,10 @@ void setup() {
 
   //Hardware initialization
   Serial.begin(115200);
-  I2C_1.begin();
   I2C_2.begin();
+
+  delay(5000);
+  
   Debug.println("Hardware initialization done.", LVL_INFO);
 
   //Check that everything is working

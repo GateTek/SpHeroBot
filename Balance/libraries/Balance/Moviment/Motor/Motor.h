@@ -2,6 +2,7 @@
 #define Motor_h
 
 #include <Arduino.h>
+#include "definitions.h"
 
 class Motor {
   public:
